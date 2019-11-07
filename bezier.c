@@ -42,10 +42,53 @@ void generateBezierTriangles( Model *model, int resolution )
 //----------------------------------------------------------
 void _computeCoefficients( double u, double v, double *coefficients )
 {
-  // TODO: For the given u and v values, generate the 16 Bernstein
-  //       coefficients.  Ensure that you compute and store them
-  //       in the proper order: c00, c01, c02, c03, c10, c11, c12,
-  //       c13, c20, c21, c22, c23, c30, c31, c31, c32, c33.
+  // c00  
+  coefficients[0] = pow((1 - u), 3) * pow((1 - v), 3);
+
+  // c01
+  coefficients[1] = 3 * v * pow((1 - u), 3) * pow((1 - v), 2);
+
+  // c02
+  coefficients[2] = 3 * pow((v), 2) * pow((1 - u), 3) * (1 - v);
+
+  // c03
+  coefficients[3] = pow(v, 3) * pow((1 - u), 3);
+
+  // c10
+  coefficients[4] = 3 * u * pow((1 - u), 2) * pow((1 - v), 3);
+
+  // c11
+  coefficients[5] = 9 * u * v * pow((1 - u), 2) * pow((1 - v), 2);
+
+  // c12
+  coefficients[6] = 9 * u * pow(v, 2) * pow((1 - u), 2) * (1 - v);
+
+  // c13
+  coefficients[7] = 3 * u * pow(v, 3) * pow((1 - u), 2);
+
+  // c20
+  coefficients[8] = 3 * pow(u, 2) * (1 - u) * pow((1 - v), 3);
+
+  // c21
+  coefficients[9] = 9 * pow(u, 2) * v * (1 - u) * pow((1 - v), 2);
+
+  // c22
+  coefficients[10] = 9 * pow(u, 2) * pow(v, 2) * (1 - u) * (1 - v);
+
+  // c23
+  coefficients[11] = 3 * pow(u, 2) * pow(v, 3) * (1 - u);
+
+  // c30
+  coefficients[12] = pow(u, 3) * pow((1 - v), 3);
+
+  // c31
+  coefficients[13] = 3 * pow(u, 3) * v * pow((1 - v), 2);
+
+  // c32
+  coefficients[14] = 3 * pow(u, 3) * pow(v, 2) * (1 - v);
+
+  // c33
+  coefficients[15] = pow(u, 3) * pow(v, 3);
 }
 
 //----------------------------------------------------------
