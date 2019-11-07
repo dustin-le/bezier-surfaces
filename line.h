@@ -1,6 +1,6 @@
-// Dalio, Brian A.
-// dalioba
-// 2019-10-25
+// Le, Dustin E.
+// dxl0689
+// 2019-11-11
 
 #if !defined( __LINE_H__ )
 #define __LINE_H__

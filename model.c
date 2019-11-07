@@ -1,6 +1,6 @@
-// Dalio, Brian A.
-// dalioba
-// 2019-11-03
+// Le, Dustin E.
+// dxl0689
+// 2019-11-11
 //----------------------------------------------------------
 #include <ctype.h>
 #include <math.h>
