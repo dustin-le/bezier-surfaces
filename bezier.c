@@ -8,20 +8,41 @@
 #include "model.h"
 #include "triangle.h"
 #include "vertex.h"
+#include <math.h>
 
 void _computeCoefficients( double u, double v, double *c );
 
 //----------------------------------------------------------
 void generateBezierPoints( Model *model, int resolution )
 {
-  // TODO: Iterate through each patch, each value of u, and each
-  //       value of v (so three nested loops in that order).
-  //       Compute the 16 coefficients for the specific values of
-  //       u and v.
-  //       Iterate through the 16 coefficients multiplying each by
-  //       the corresponding control point and accumulating the
-  //       result in the current Bézier surface point.
-  //       This is done for that point's x, y, and z coordinates.
+  int i, j, k, l;
+  double u[resolution], v[resolution], coefficients[16];
+
+  double temp = 0;
+  double increment = (1/((double) resolution - 1));
+  for (i = 0; i < resolution; i++)
+  {
+    u[i] = temp;
+    v[i] = temp;
+    temp += increment;
+  }
+  for (i = 0; i < model->m_numPatches; i++)
+  {
+    for (j = 0; j < resolution; j++)
+    {
+      for (k = 0; k < resolution; k++)
+      {
+        _computeCoefficients(u[j], v[k], coefficients);
+        for (l = 0; l < 16; l++)
+        {
+          model->m_patchVertex[l].x += coefficients[l] * model->m_vertex[l].x;
+          model->m_patchVertex[l].y += coefficients[l] * model->m_vertex[l].y;
+          model->m_patchVertex[l].z += coefficients[l] * model->m_vertex[l].z;
+        }
+      }
+    }
+  }
+
 }
 
 //----------------------------------------------------------
