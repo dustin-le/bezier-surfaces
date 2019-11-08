@@ -35,9 +35,9 @@ void generateBezierPoints( Model *model, int resolution )
         _computeCoefficients(u[j], v[k], coefficients);
         for (l = 0; l < 16; l++)
         {
-          model->m_patchVertex[l].x += coefficients[l] * model->m_vertex[l].x;
-          model->m_patchVertex[l].y += coefficients[l] * model->m_vertex[l].y;
-          model->m_patchVertex[l].z += coefficients[l] * model->m_vertex[l].z;
+          model->m_patchVertex[l].x += coefficients[l] * model->m_vertex[model->m_patch[i][l]].x;
+          model->m_patchVertex[l].y += coefficients[l] * model->m_vertex[model->m_patch[i][l]].y;
+          model->m_patchVertex[l].z += coefficients[l] * model->m_vertex[model->m_patch[i][l]].z;
         }
       }
     }
