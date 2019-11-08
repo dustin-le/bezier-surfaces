@@ -14,7 +14,7 @@ void _computeCoefficients( double u, double v, double *c );
 //----------------------------------------------------------
 void generateBezierPoints( Model *model, int resolution )
 {
-  int i, j, k, l;
+  int i, j, k, l, count = 0;
   double u[resolution], v[resolution], coefficients[16];
 
   double temp = 0;
@@ -66,13 +66,16 @@ void generateBezierPoints( Model *model, int resolution )
     {
       for (k = 0; k < resolution; k++)
       {
+        Vertex temp;
         _computeCoefficients(u[j], v[k], coefficients);
         for (l = 0; l < 16; l++)
         {
-          model->m_patchVertex[model->m_patch[i][l]].x += coefficients[l] * model->m_vertex[model->m_patch[i][l]].x;
-          model->m_patchVertex[model->m_patch[i][l]].y += coefficients[l] * model->m_vertex[model->m_patch[i][l]].y;
-          model->m_patchVertex[model->m_patch[i][l]].z += coefficients[l] * model->m_vertex[model->m_patch[i][l]].z;
+          temp.x += coefficients[l] * model->m_vertex[model->m_patch[i][l]].x;
+          temp.y += coefficients[l] * model->m_vertex[model->m_patch[i][l]].y;
+          temp.z += coefficients[l] * model->m_vertex[model->m_patch[i][l]].z;
         }
+        model->m_patchVertex[count] = temp;
+        count++;
       }
     }
   }
