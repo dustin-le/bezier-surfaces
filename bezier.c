@@ -63,53 +63,62 @@ void generateBezierTriangles( Model *model, int resolution )
 //----------------------------------------------------------
 void _computeCoefficients( double u, double v, double *coefficients )
 {
+  double u2 = u * u;
+  double u3 = u * u * u;
+  double v2 = v * v;
+  double v3 = v * v * v;
+  double minu2 = (1 - u) * (1 - u);
+  double minu3 = (1 - u) * (1 - u) * (1 - u);
+  double minv2 = (1 - v) * (1 - v);
+  double minv3 = (1 - v) * (1 - v) * (1 - v);
+
   // c00  
-  coefficients[0] = pow((1 - u), 3) * pow((1 - v), 3);
+  coefficients[0] = minu3 * minv3;
 
   // c01
-  coefficients[1] = 3 * v * pow((1 - u), 3) * pow((1 - v), 2);
+  coefficients[1] = 3 * v * minu3 * minv2;
 
   // c02
-  coefficients[2] = 3 * pow((v), 2) * pow((1 - u), 3) * (1 - v);
+  coefficients[2] = 3 * v2 * minu3 * (1 - v);
 
   // c03
-  coefficients[3] = pow(v, 3) * pow((1 - u), 3);
+  coefficients[3] = v3 * minu3;
 
   // c10
-  coefficients[4] = 3 * u * pow((1 - u), 2) * pow((1 - v), 3);
+  coefficients[4] = 3 * u * minu2 * minv3;
 
   // c11
-  coefficients[5] = 9 * u * v * pow((1 - u), 2) * pow((1 - v), 2);
+  coefficients[5] = 9 * u * v * minu2 * minv2;
 
   // c12
-  coefficients[6] = 9 * u * pow(v, 2) * pow((1 - u), 2) * (1 - v);
+  coefficients[6] = 9 * u * v2 * minu2 * (1 - v);
 
   // c13
-  coefficients[7] = 3 * u * pow(v, 3) * pow((1 - u), 2);
+  coefficients[7] = 3 * u * v3 * minu2;
 
   // c20
-  coefficients[8] = 3 * pow(u, 2) * (1 - u) * pow((1 - v), 3);
+  coefficients[8] = 3 * u2 * (1 - u) * minv3;
 
   // c21
-  coefficients[9] = 9 * pow(u, 2) * v * (1 - u) * pow((1 - v), 2);
+  coefficients[9] = 9 * u2 * v * (1 - u) * minv2;
 
   // c22
-  coefficients[10] = 9 * pow(u, 2) * pow(v, 2) * (1 - u) * (1 - v);
+  coefficients[10] = 9 * u2 * v2 * (1 - u) * (1 - v);
 
   // c23
-  coefficients[11] = 3 * pow(u, 2) * pow(v, 3) * (1 - u);
+  coefficients[11] = 3 * u2 * v3 * (1 - u);
 
   // c30
-  coefficients[12] = pow(u, 3) * pow((1 - v), 3);
+  coefficients[12] = u3 * minv3;
 
   // c31
-  coefficients[13] = 3 * pow(u, 3) * v * pow((1 - v), 2);
+  coefficients[13] = 3 * u3 * v * minv2;
 
   // c32
-  coefficients[14] = 3 * pow(u, 3) * pow(v, 2) * (1 - v);
+  coefficients[14] = 3 * u3 * v2 * (1 - v);
 
   // c33
-  coefficients[15] = pow(u, 3) * pow(v, 3);
+  coefficients[15] = u3 * v3;
 }
 
 //----------------------------------------------------------
