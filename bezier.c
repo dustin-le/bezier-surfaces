@@ -67,6 +67,9 @@ void generateBezierPoints( Model *model, int resolution )
       for (k = 0; k < resolution; k++)
       {
         Vertex temp;
+        temp.x = 0;
+        temp.y = 0;
+        temp.z = 0;
         _computeCoefficients(u[j], v[k], coefficients);
         for (l = 0; l < 16; l++)
         {
@@ -84,16 +87,23 @@ void generateBezierPoints( Model *model, int resolution )
 //----------------------------------------------------------
 void generateBezierTriangles( Model *model, int resolution )
 {
-  // TODO: Iterate through each patch, each row of that patch, and
-  //       and each column of that patch (so three nested loops in
-  //       that order).
-  //       Dump the two triangles that correspond to the row and
-  //       column positions using the dumpTriangle() routine.
-  //       Remember that you have to consider only the first
-  //       through the penultimate row and the first through the
-  //       penultimate column when generating a patch's triangles.
-  //       Ensure that you generate the triangles in the correct
-  //       order and use the vertices in the correct order.
+  int i, row, column, rowStart, here, there;
+
+  for (i = 0; i < model->m_numPatches; i++)
+  {
+    for (row = 0; row < resolution - 1; row++)
+    {
+      rowStart = row * resolution;
+      for (column = 0; column < resolution - 1; column++)
+      {
+        here = rowStart + column;
+        there = here + resolution;
+
+        dumpTriangle(&model->m_patchVertex[here], &model->m_patchVertex[there], &model->m_patchVertex[there+1]);
+        dumpTriangle(&model->m_patchVertex[there+1], &model->m_patchVertex[here+1], &model->m_patchVertex[here]);
+      }
+    }
+  }
 }
 
 //----------------------------------------------------------
