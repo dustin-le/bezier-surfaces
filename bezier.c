@@ -8,7 +8,6 @@
 #include "model.h"
 #include "triangle.h"
 #include "vertex.h"
-#include <math.h>
 
 void _computeCoefficients( double u, double v, double *c );
 
@@ -26,6 +25,41 @@ void generateBezierPoints( Model *model, int resolution )
     v[i] = temp;
     temp += increment;
   }
+
+  // // Prints out model->m_patch
+  // for (int i = 0; i < 2; i++)
+  // {
+  //   for (int j = 0; j < 16; j++)
+  //   {
+  //     printf("(%d, %d) = %d\n", i, j, model->m_patch[i][j]);
+  //   }
+  // }
+
+  // // Print out vertices
+  // for (i = 0; i < model->m_numVertices; i++)
+  // {
+  //   printf("x %d = %lf\n", i, model->m_vertex[i].x);
+  //   printf("y %d = %lf\n", i, model->m_vertex[i].y);
+  //   printf("z %d = %lf\n", i, model->m_vertex[i].z);
+  // }
+
+  // // Print out patch vertex.
+  // for (i = 0; i < 16; i++)
+  // {
+  //   printf("x %d = %lf\n", i, model->m_patchVertex[i].x);
+  //   printf("y %d = %lf\n", i, model->m_patchVertex[i].y);
+  //   printf("z %d = %lf\n", i, model->m_patchVertex[i].z);
+  // }
+
+  // // Print out m_vertex values based on each patch array. (*.svfm)
+  // for (int i = 0; i < model->m_numPatches; i++)
+  // {
+  //   for (int j = 0; j < 16; j++)
+  //   {
+  //     printf("%d: %lf %lf %lf\n", model->m_patch[i][j], model->m_vertex[model->m_patch[i][j]].x, model->m_vertex[model->m_patch[i][j]].y, model->m_vertex[model->m_patch[i][j]].z);
+  //   }
+  // }
+
   for (i = 0; i < model->m_numPatches; i++)
   {
     for (j = 0; j < resolution; j++)
@@ -42,7 +76,6 @@ void generateBezierPoints( Model *model, int resolution )
       }
     }
   }
-
 }
 
 //----------------------------------------------------------
