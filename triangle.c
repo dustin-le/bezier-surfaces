@@ -21,8 +21,7 @@ void dumpTriangle( Vertex *v1, Vertex *v2, Vertex *v3 )
 //----------------------------------------------------------
 void setPortal( View *v )
 {
-  // TODO:  Remember the view so it can be clipped against when
-  //        triangles are drawn later.
+  _view = v;
 }
 
 //----------------------------------------------------------
