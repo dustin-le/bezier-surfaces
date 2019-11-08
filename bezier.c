@@ -93,7 +93,7 @@ void generateBezierTriangles( Model *model, int resolution )
   {
     for (row = 0; row < resolution - 1; row++)
     {
-      rowStart = row * resolution;
+      rowStart = row * resolution + (i * (resolution * resolution));
       for (column = 0; column < resolution - 1; column++)
       {
         here = rowStart + column;
